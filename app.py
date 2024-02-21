@@ -18,6 +18,7 @@ def getDictByJson(jsonFile):
 
 @app.route("/", methods = ["GET", "POST"])
 def hello_world():
+    global logger
     if request.content_type == "application/json" and request.method == "POST":
         print("Request {} with json {}".format(request.method, request.json))
         if request.json.get("num") != None:
@@ -35,6 +36,7 @@ def hello_world():
         return data
 
 if __name__ == "__main__":
+    global logger
     logger = Logger()
     logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
     app.run(debug = True)
