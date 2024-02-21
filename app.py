@@ -8,6 +8,8 @@ import traceback
 import random as rd
 
 app = Flask(__name__)
+logger = Logger()
+#minor fix
 
 def saveDictToJsonFile(data, jsonFile):
     with open(jsonFile, 'w') as outfile:
@@ -36,7 +38,5 @@ def hello_world():
         return data
 
 if __name__ == "__main__":
-    global logger
-    logger = Logger()
     logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
     app.run(debug = True)
