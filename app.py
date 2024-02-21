@@ -18,7 +18,7 @@ def getDictByJson(jsonFile):
 
 
 cur = dt.now()
-print(cur.strftime("%H:%M:%S"))
+print("Server start at {}".format(cur.strftime("%H:%M:%S")))
 
 @app.route("/", methods = ["GET", "POST"])
 def hello_world():
