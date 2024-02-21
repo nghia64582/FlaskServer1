@@ -5,6 +5,7 @@ from flask import Flask
 from flask import request
 import json
 import time
+from datetime import datetime as dt
 
 app = Flask(__name__)
 
@@ -15,6 +16,9 @@ def saveDictToJsonFile(data, jsonFile):
 def getDictByJson(jsonFile):
     return json.load(open(jsonFile))
 
+
+cur = dt.now()
+print(cur.strftime("%H:%M:%S"))
 
 @app.route("/", methods = ["GET", "POST"])
 def hello_world():
@@ -41,3 +45,6 @@ def hello_world():
         except:
             print("Print time")
             return "Ver 1.2. Current time is {}".format(time.time())
+
+if __name__ == "__main__":
+    app.run(debug = True)
