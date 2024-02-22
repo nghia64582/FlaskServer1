@@ -8,8 +8,15 @@ import traceback
 import random as rd
 from config import *
 
+print(1)
 app = Flask(__name__)
+print(2)
 logger = Logger()
+print(3)
+logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
+print(4)
+app.run(debug = True)
+print(5)
 #minor fix 1
 
 def saveDictToJsonFile(data, jsonFile):
@@ -39,7 +46,3 @@ def hello_world():
         return data
     else:
         return "Invalid request"
-
-print(__name__)
-logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
-app.run(debug = True)
