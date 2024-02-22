@@ -40,12 +40,6 @@ def hello_world():
     else:
         return "Invalid request"
 
-if __name__ == "__main__":
-    print(1)
-    try:
-        print(2)
-        logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
-        print(3)
-    except:
-        traceback.print_exc()
-    app.run(debug = True)
+print(__name__)
+logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
+app.run(debug = True)
