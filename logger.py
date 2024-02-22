@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 import os
+from config import *
 
 class Logger:
     def __init__(self):
@@ -9,7 +10,7 @@ class Logger:
         return dt.now().strftime(format)
     
     def debug(self, st):
-        fullSt = self.getStrCurrentTime("%d-%m-%Y %H-%M-%S") + "\t: " + st + "\n"
+        fullSt = self.getStrCurrentTime("%d-%m-%Y %H-%M-%S") + "-ver {}: ".format(VERSION) + st + "\n"
         curFileName = self.getStrCurrentTime("%d-%m %H") + ".txt"
         path = "Log/" + curFileName
         if not os.path.exists(path):

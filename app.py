@@ -6,6 +6,7 @@ from datetime import datetime as dt
 from logger import Logger
 import traceback
 import random as rd
+from config import *
 
 app = Flask(__name__)
 logger = Logger()
@@ -22,7 +23,7 @@ def getDictByJson(jsonFile):
 def hello_world():
     global logger
     if request.content_type == "application/json" and request.method == "POST":
-        print("Request {} with json {}".format(request.method, request.json))
+        print("Request {} with json {}, version {}".format(request.method, request.json, VERSION))
         if request.json.get("num") != None:
             num = int(request.json.get("num"))
             data = {"a": [i for i in range(num)]}
@@ -34,7 +35,7 @@ def hello_world():
     elif request.method == "GET":
         data = getDictByJson("data1.json")
         logger.debug("Get request from IP {}.".format(request.remote_addr))
-        print("Data {}".format(data))
+        print("Get request, version {}", VERSION)
         return data
     else:
         return "Invalid request"
