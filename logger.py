@@ -10,9 +10,9 @@ class Logger:
         return dt.now().strftime(format)
     
     def debug(self, st):
-        fullSt = self.getStrCurrentTime("%d-%m-%Y %H-%M-%S") + "-ver {}: ".format(VERSION) + st
+        fullSt = self.getStrCurrentTime("%d-%m-%Y %H:%M:%S") + "-ver {}: ".format(VERSION) + st
         print(fullSt)
-        curFileName = self.getStrCurrentTime("%d-%m %H") + ".txt"
+        curFileName = self.getStrCurrentTime("%d-%m") + (" AM" if dt.now().hour <= 11 else " PM") + ".txt"
         path = "Log/" + curFileName
         if not os.path.exists(path):
             os.makedirs(os.path.dirname(path), exist_ok = True)
