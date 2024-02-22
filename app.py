@@ -23,7 +23,7 @@ def getDictByJson(jsonFile):
 def hello_world():
     global logger
     if request.content_type == "application/json" and request.method == "POST":
-        logger.debug("Request {} with json {}, ver {}".format(request.method, request.json, VERSION))
+        logger.debug("Request {} with json {}".format(request.method, request.json))
         if request.json.get("num") != None:
             num = int(request.json.get("num"))
             data = {"a": [i for i in range(num)]}
@@ -35,7 +35,7 @@ def hello_world():
             return "Json do not have key <num>"
     elif request.method == "GET":
         data = getDictByJson("data1.json")
-        logger.debug("Get request from IP {}, ver {}.".format(request.remote_addr, VERSION))
+        logger.debug("Get request from IP {}.".format(request.remote_addr))
         return data
     else:
         return "Invalid request"
