@@ -36,6 +36,8 @@ def hello_world():
         logger.debug("Get request from IP {}.".format(request.remote_addr))
         print("Data {}".format(data))
         return data
+    else:
+        return "Invalid request"
 
 if __name__ == "__main__":
     logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
