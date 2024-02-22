@@ -9,7 +9,7 @@ import random as rd
 
 app = Flask(__name__)
 logger = Logger()
-#minor fix
+#minor fix 1
 
 def saveDictToJsonFile(data, jsonFile):
     with open(jsonFile, 'w') as outfile:
