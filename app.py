@@ -8,9 +8,9 @@ import random as rd
 from config import *
 
 app = Flask(__name__)
-# logger = Logger()
-# logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
-# app.run(debug = True)
+logger = Logger()
+logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
+app.run(debug = True)
 #minor fix 1
 
 def saveDictToJsonFile(data, jsonFile):
@@ -76,4 +76,4 @@ def startSocket():
     # Close the connection
     client_socket.close()
 
-startSocket()
+# startSocket()
