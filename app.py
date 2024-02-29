@@ -5,6 +5,7 @@ import time
 from datetime import datetime as dt
 from logger import Logger
 import random as rd
+import traceback
 from config import *
 
 app = Flask(__name__)
@@ -23,20 +24,23 @@ def getDictByJson(jsonFile):
 @app.route("/", methods = ["GET", "POST"])
 def hello_world():
     global logger
-    if request.content_type == "application/json" and request.method == "POST":
-        logger.debug("Request {} with json {}".format(request.method, request.json))
-        if request.json.get("num") != None:
-            num = int(request.json.get("num"))
-            data = {"a": [i for i in range(num)]}
-            saveDictToJsonFile(data, "data1.json")
-            logger.debug("IP {} create json with size {}".format(request.remote_addr, num))
-            return "Create json with size {}".format(num)
+    try:
+        if request.content_type == "application/json" and request.method == "POST":
+            logger.debug("Request {} with json {}".format(request.method, request.json))
+            if request.json.get("num") != None:
+                num = int(request.json.get("num"))
+                data = {"a": [i for i in range(num)]}
+                saveDictToJsonFile(data, "data1.json")
+                logger.debug("IP {} create json with size {}".format(request.remote_addr, num))
+                return "Create json with size {}".format(num)
+            else:
+                logger.debug("POST request without 'num' key.")
+                return "Json do not have key <num>"
+        elif request.method == "GET":
+            data = getDictByJson("data1.json")
+            logger.debug("Get request from IP {}.".format(request.remote_addr))
+            return data
         else:
-            logger.debug("POST request without 'num' key.")
-            return "Json do not have key <num>"
-    elif request.method == "GET":
-        data = getDictByJson("data1.json")
-        logger.debug("Get request from IP {}.".format(request.remote_addr))
-        return data
-    else:
-        return "Invalid request"
+            return "Invalid request"
+    except:
+        traceback.print_exc(file = "Exception.txt")
