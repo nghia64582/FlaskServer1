@@ -4,14 +4,13 @@ import json
 import time
 from datetime import datetime as dt
 from logger import Logger
-import random as rd
 import traceback
+import random as rd
 from config import *
 
 app = Flask(__name__)
 logger = Logger()
 logger.debug("Server start at {}".format(dt.now().strftime("%H:%M:%S")))
-app.run(debug = True)
 #minor fix 1
 
 def saveDictToJsonFile(data, jsonFile):
@@ -24,23 +23,22 @@ def getDictByJson(jsonFile):
 @app.route("/", methods = ["GET", "POST"])
 def hello_world():
     global logger
-    try:
-        if request.content_type == "application/json" and request.method == "POST":
-            logger.debug("Request {} with json {}".format(request.method, request.json))
-            if request.json.get("num") != None:
-                num = int(request.json.get("num"))
-                data = {"a": [i for i in range(num)]}
-                saveDictToJsonFile(data, "data1.json")
-                logger.debug("IP {} create json with size {}".format(request.remote_addr, num))
-                return "Create json with size {}".format(num)
-            else:
-                logger.debug("POST request without 'num' key.")
-                return "Json do not have key <num>"
-        elif request.method == "GET":
-            data = getDictByJson("data1.json")
-            logger.debug("Get request from IP {}.".format(request.remote_addr))
-            return data
+    if request.content_type == "application/json" and request.method == "POST":
+        logger.debug("Request {} with json {}".format(request.method, request.json))
+        if request.json.get("num") != None:
+            num = int(request.json.get("num"))
+            data = {"a": [i for i in range(num)]}
+            saveDictToJsonFile(data, "data1.json")
+            logger.debug("IP {} create json with size {}".format(request.remote_addr, num))
+            return "Create json with size {}".format(num)
         else:
-            return "Invalid request"
-    except:
-        traceback.print_exc(file = "Exception.txt")
+            logger.debug("POST request without 'num' key.")
+            return "Json do not have key <num>"
+    elif request.method == "GET":
+        data = getDictByJson("data1.json")
+        logger.debug("Get request from IP {}.".format(request.remote_addr))
+        return data
+    else:
+        return "Invalid request"
+    
+app.run(debug = True)
